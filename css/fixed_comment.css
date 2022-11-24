@@ -194,3 +194,23 @@ div#quit-board.fixedcomment {
     /* 边框颜色 */
     border-color: var(--gz-card-border);
   }
+
+@media screen and (max-width: 768px) {
+  .tk-meta-input{
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tk-meta-input {
+    flex-direction: column;
+  } 
+}
+
+@media screen and (max-width: 768px){
+  .tk-submit .el-button--primary {
+      width: 5rem;
+      height: 132px;
+      top: -161px;
+  }
+}
