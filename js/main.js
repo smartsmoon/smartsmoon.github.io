@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
   let blogNameWidth, menusWidth, searchWidth, $nav
   let mobileSidebarOpen = false
@@ -276,14 +277,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const $header = document.getElementById('page-header')
     const isChatBtnHide = typeof chatBtnHide === 'function'
     const isChatBtnShow = typeof chatBtnShow === 'function'
-
+    $header.classList.add('nav-fixed')
+    $header.classList.add('nav-visible')
     window.scrollCollect = () => {
       return btf.throttle(function (e) {
         const currentTop = window.scrollY || document.documentElement.scrollTop
         const isDown = scrollDirection(currentTop)
-        if (currentTop > 56) {
+        $header.classList.add('nav-fixed')
+        $header.classList.add('nav-visible')
+        if (currentTop > 0) {
           if (isDown) {
-            if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
+            if ($header.classList.contains('nav-visible')) $header.classList.add('nav-visible')
             if (isChatBtnShow && isChatShow === true) {
               chatBtnHide()
               isChatShow = false
@@ -297,17 +301,17 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           $header.classList.add('nav-fixed')
           if (window.getComputedStyle($rightside).getPropertyValue('opacity') === '0') {
-            $rightside.style.cssText = 'opacity: 0.8; transform: translateX(-58px)'
+            $rightside.style.cssText = ' transform: translateX(-58px)'
           }
         } else {
           if (currentTop === 0) {
             $header.classList.remove('nav-fixed', 'nav-visible')
           }
-          $rightside.style.cssText = "opacity: ''; transform: ''"
+          // $rightside.style.cssText = "opacity: ''; transform: ''"
         }
 
         if (document.body.scrollHeight <= innerHeight) {
-          $rightside.style.cssText = 'opacity: 0.8; transform: translateX(-58px)'
+          //$rightside.style.cssText = 'opacity: 0.8; transform: translateX(-58px)'
         }
       }, 200)()
     }
@@ -478,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function () {
       typeof utterancesTheme === 'function' && utterancesTheme()
       typeof changeGiscusTheme === 'function' && changeGiscusTheme()
       typeof FB === 'object' && window.loadFBComment()
+      window.DISQUS && document.getElementById('disqus_thread').children.length && setTimeout(() => window.disqusReset(), 200)
       typeof runMermaid === 'function' && window.runMermaid()
     },
     showOrHideBtn: (e) => { // rightside 點擊設置 按鈕 展開
